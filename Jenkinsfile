@@ -60,7 +60,7 @@ pipeline {
     stage('Push Image to Docker Hub') {         
     steps{  
      sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                          
-     sh 'sudo docker push vibhor07/polling'           
+     sh 'sudo docker push anshuman123abc/polling'           
     echo 'Push Image Completed'       
     }            
 }
