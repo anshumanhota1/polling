@@ -79,7 +79,7 @@ pipeline {
                 script {
                     dir('application') {
                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-                        sh "kubectl apply -f deployment.yaml"
+                        sh "kubectl apply -f Deployment.yaml"
                     }
                 }
             }
