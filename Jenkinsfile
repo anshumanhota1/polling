@@ -41,6 +41,8 @@ pipeline {
             dir('application'){
                 //dockerImage = docker.build registry
                 sh 'docker build . -t anshuman123abc/polling'
+                sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+                sh "kubectl apply -f Deployment.yaml"
             }
         }
       }
@@ -74,15 +76,15 @@ pipeline {
     //         }
     //     }
     //    }
-     stage("Deploy to EKS") {
-            steps {
-                script {
-                    dir('application') {
-                        sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-                        sh "kubectl apply -f Deployment.yaml"
-                    }
-                }
-            }
-        }
+//      stage("Deploy to EKS") {
+//             steps {
+//                 script {
+//                     dir('application') {
+//                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+//                         sh "kubectl apply -f Deployment.yaml"
+//                     }
+//                 }
+//             }
+//         }
     }
 }
