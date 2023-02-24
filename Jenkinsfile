@@ -40,7 +40,7 @@ pipeline {
         script {
             dir('application'){
                 //dockerImage = docker.build registry
-                sh 'docker build . -t vibhor07/polling'
+                sh 'sudo docker build . -t vibhor07/polling'
             }
         }
       }
