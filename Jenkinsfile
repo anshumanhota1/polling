@@ -35,18 +35,18 @@ pipeline {
             }
         }
     // Building Docker images
-    stage('Building Docker image') {
-      steps{
-        script {
-            dir('application'){
-                //dockerImage = docker.build registry
-                sh 'docker build . -t anshuman123abc/polling'
-                sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-                sh "kubectl apply -f Deployment.yaml"
-            }
-        }
-      }
-    }
+//     stage('Building Docker image') {
+//       steps{
+//         script {
+//             dir('application'){
+//                 //dockerImage = docker.build registry
+//                 sh 'docker build . -t anshuman123abc/polling'
+//                 sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+//                 sh "kubectl apply -f Deployment.yaml"
+//             }
+//         }
+//       }
+//     }
    
     // Uploading Docker images into AWS ECR
     // stage('Pushing to Dockerhub') {
@@ -76,15 +76,16 @@ pipeline {
     //         }
     //     }
     //    }
-//      stage("Deploy to EKS") {
-//             steps {
-//                 script {
-//                     dir('application') {
-//                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-//                         sh "kubectl apply -f Deployment.yaml"
-//                     }
-//                 }
-//             }
-//         }
+     stage("Deploy to EKS") {
+            steps {
+                script {
+                    dir('application') {
+                        sh "pwd"
+                        sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+                        sh "kubectl apply -f Deployment.yaml"
+                    }
+                }
+            }
+        }
     }
 }
