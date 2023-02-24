@@ -41,7 +41,7 @@ pipeline {
             dir('application'){
                 //sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
                 //dockerImage = docker.build registry
-                sh 'sudo docker build . -t vibhor07/polling'
+                sh 'sudo docker build -t vibhor07/polling .'
             }
         }
       }
