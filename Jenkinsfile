@@ -10,7 +10,7 @@ pipeline {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         AWS_DEFAULT_REGION = "us-east-1"
-//         DOCKERHUB_CREDENTIALS= credentials('docker')
+        DOCKERHUB_CREDENTIALS= credentials('docker')
     }
    
     stages {
@@ -35,18 +35,16 @@ pipeline {
             }
         }
     // Building Docker images
-//     stage('Building Docker image') {
-//       steps{
-//         script {
-//             dir('application'){
-//                 //dockerImage = docker.build registry
-//                 sh 'docker build . -t anshuman123abc/polling'
-//                 sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-//                 sh "kubectl apply -f Deployment.yaml"
-//             }
-//         }
-//       }
-//     }
+    stage('Building Docker image') {
+      steps{
+        script {
+            dir('application'){
+                //dockerImage = docker.build registry
+                sh 'docker build . -t anshuman123abc/polling'
+            }
+        }
+      }
+    }
    
     // Uploading Docker images into AWS ECR
     // stage('Pushing to Dockerhub') {
@@ -58,14 +56,14 @@ pipeline {
     //      }
     //      }
     //     }
-    //   }
-//     stage('Push Image to Docker Hub') {         
-//     steps{  
-//      sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                          
-//      sh 'sudo docker push anshuman123abc/polling'           
-//     echo 'Push Image Completed'       
-//     }            
-// }
+    //  }
+    stage('Push Image to Docker Hub') {         
+    steps{  
+     sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                          
+     sh 'sudo docker push vibhor07/polling'           
+    echo 'Push Image Completed'       
+    }            
+}
 
     //    stage('K8S Deploy') {
     //     steps{   
