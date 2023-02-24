@@ -80,6 +80,7 @@ pipeline {
                     dir('application') {
                         sh "pwd"
                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+                        sh "kubectl delete -f Deployment.yml"
                         sh "kubectl apply -f Deployment.yml"
                         sh 'cat Deployment.yml'
                         sh "kubectl get svc"
