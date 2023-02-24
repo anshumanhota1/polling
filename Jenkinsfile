@@ -81,6 +81,7 @@ pipeline {
                         sh "pwd"
                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
                         sh "kubectl apply -f Deployment.yml"
+                        sh "kubectl get svc"
                     }
                 }
             }
