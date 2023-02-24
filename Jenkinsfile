@@ -29,23 +29,23 @@ pipeline {
                 script {
                     dir('terraform') {
                         sh "terraform init"
-                        sh "terraform apply -auto-approve"
+                        sh "terraform destory -auto-approve"
                     }
                 }
             }
         }
     // Building Docker images
-    stage('Building Docker image') {
-      steps{
-        script {
-            dir('application'){
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                //dockerImage = docker.build registry
-                sh 'echo admin | sudo docker build -t vibhor07/polling .'
-            }
-        }
-      }
-    }
+//     stage('Building Docker image') {
+//       steps{
+//         script {
+//             dir('application'){
+//                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+//                 //dockerImage = docker.build registry
+//                 sh 'echo admin | sudo docker build -t vibhor07/polling .'
+//             }
+//         }
+//       }
+//     }
    
     // Uploading Docker images into AWS ECR
     // stage('Pushing to Dockerhub') {
@@ -58,12 +58,12 @@ pipeline {
     //      }
     //     }
     //  }
-    stage('Push Image to Docker Hub') {         
-    steps{           
-     sh 'sudo docker push vibhor07/polling'           
-    echo 'Push Image Completed'       
-    }            
-}
+//     stage('Push Image to Docker Hub') {         
+//     steps{           
+//      sh 'sudo docker push vibhor07/polling'           
+//     echo 'Push Image Completed'       
+//     }            
+// }
 
     //    stage('K8S Deploy') {
     //     steps{   
@@ -74,19 +74,19 @@ pipeline {
     //         }
     //     }
     //    }
-     stage("Deploy to EKS") {
-            steps {
-                script {
-                    dir('application') {
-                        sh "pwd"
-                        sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-                        sh "kubectl delete -f Deployment.yml"
-                        sh "kubectl apply -f Deployment.yml"
-                        sh 'cat Deployment.yml'
-                        sh "kubectl get svc"
-                    }
-                }
-            }
-        }
+//      stage("Deploy to EKS") {
+//             steps {
+//                 script {
+//                     dir('application') {
+//                         sh "pwd"
+//                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+//                         sh "kubectl delete -f Deployment.yml"
+//                         sh "kubectl apply -f Deployment.yml"
+//                         sh 'cat Deployment.yml'
+//                         sh "kubectl get svc"
+//                     }
+//                 }
+//             }
+//         }
     }
 }
