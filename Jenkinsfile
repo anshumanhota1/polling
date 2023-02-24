@@ -39,6 +39,7 @@ pipeline {
       steps{
         script {
             dir('application'){
+                sh 'uname'
                 sh 'sudo usermod -aG docker $USER'
                 sh 'pwd'
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
