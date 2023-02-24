@@ -36,5 +36,5 @@ spec:
   - port: 3010
     targetPort: 8000
     nodePort: 31515
-  type: NodePort
+  type: LoadBalancer
 
