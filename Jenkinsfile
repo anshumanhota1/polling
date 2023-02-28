@@ -21,47 +21,47 @@ pipeline {
                 script {
                     dir('terraform') {
                         sh "terraform init"
-                        sh "terraform destroy -auto-approve"
+                        sh "terraform apply -auto-approve"
                     }
                 }
             }
         }
 
-//     stage('Building Docker image') {
-//       steps{
-//         script {
-//             dir('application'){
-//                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-//               //  sh 'passwd jenkins'
-//                 //dockerImage = docker.build registry
-//                 sh 'echo admin | sudo docker build -t anshuman123abc/polling .'
-//             }
-//         }
-//       }
-//     }
+    stage('Building Docker image') {
+      steps{
+        script {
+            dir('application'){
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+              //  sh 'passwd jenkins'
+                //dockerImage = docker.build registry
+                sh 'echo admin | sudo docker build -t anshuman123abc/polling .'
+            }
+        }
+      }
+    }
    
 
-//     stage('Push Image to Docker Hub') {         
-//     steps{           
-//      sh 'sudo docker push anshuman123abc/polling'           
-//     echo 'Push Image Completed'       
-//     }            
-// }
+    stage('Push Image to Docker Hub') {         
+    steps{           
+     sh 'sudo docker push anshuman123abc/polling'           
+    echo 'Push Image Completed'       
+    }            
+}
 
 
-//      stage("Deploy to EKS") {
-//             steps {
-//                 script {
-//                     dir('application') {
-//                         sh "pwd"
-//                         sh "aws eks update-kubeconfig --name myapp-eks-cluster"
-//                         sh "kubectl delete -f Deployment.yml"
-//                         sh "kubectl apply -f Deployment.yml"
-//                         sh 'cat Deployment.yml'
-//                         sh "kubectl get svc"
-//                     }
-//                 }
-//             }
-//         }
+     stage("Deploy to EKS") {
+            steps {
+                script {
+                    dir('application') {
+                        sh "pwd"
+                        sh "aws eks update-kubeconfig --name myapp-eks-cluster"
+                        sh "kubectl delete -f Deployment.yml"
+                        sh "kubectl apply -f Deployment.yml"
+                        sh 'cat Deployment.yml'
+                        sh "kubectl get svc"
+                    }
+                }
+            }
+        }
     }
 }
