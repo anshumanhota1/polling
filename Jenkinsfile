@@ -32,6 +32,7 @@ pipeline {
         script {
             dir('application'){
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+              //  sh 'passwd jenkins'
                 //dockerImage = docker.build registry
                 sh 'echo admin | sudo docker build -t anshuman123abc/polling .'
             }
